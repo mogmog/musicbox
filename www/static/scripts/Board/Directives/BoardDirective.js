@@ -1,5 +1,5 @@
-Application.Directives.directive('board', ['$window', '$q', '$stateParams', '$timeout',   '$filter', '$compile', 'ComponentService', '$state',
-    function($window, $q, $stateParams, $timeout,  $filter, $compile, ComponentService, $state) {
+Application.Directives.directive('board', ['$window', '$q', '$stateParams', '$timeout',   '$filter', '$compile', 'SpotifyAndEchoNestService', '$state',
+    function($window, $q, $stateParams, $timeout,  $filter, $compile, SpotifyAndEchoNestService, $state) {
 
         function albumPicker(svg, margin, width, height, scope) {
 
@@ -30,7 +30,7 @@ Application.Directives.directive('board', ['$window', '$q', '$stateParams', '$ti
                         scope.$apply();
                     })
 
-                albumPicker.group
+                albumPicker.album = albumPicker.group
                     .append('foreignObject')
                     .attr('class', 'id')
                     .attr("x",      function(d, i) {return i * 300})
@@ -38,7 +38,7 @@ Application.Directives.directive('board', ['$window', '$q', '$stateParams', '$ti
                     .attr('width', 640)
                     .attr('height', 640)
                     .attr("transform", function(d, i) {return "rotate(" + randomIntFromInterval(-4, 4) + ","+ (i * 200+320/2) + ","+ (i * 320 + 320/2) +")"})
-                    .html(function(d) {return '<img src="https://i.scdn.co/image/f2798ddab0c7b76dc2d270b65c4f67ddef7f6718"/>'})
+                    .html(function(d) {return '<img src="' + d.images[0].url + '"/>'})
 
                 return albumPicker;
             }
@@ -49,7 +49,7 @@ Application.Directives.directive('board', ['$window', '$q', '$stateParams', '$ti
                     .scale(1)
                     .scaleExtent([0.1, 5.0])
                     .on("zoom", function() {
-                        albumPicker.group.attr("transform", "translate(" + d3.event.translate[0] + "," + d3.event.translate[1] + ") scale(" + d3.event.scale + ")")
+                        albumPicker.album.attr("transform", "translate(" + d3.event.translate[0] + "," + d3.event.translate[1] + ") scale(" + d3.event.scale + ")")
                     })
                 )
 
@@ -65,7 +65,11 @@ Application.Directives.directive('board', ['$window', '$q', '$stateParams', '$ti
             template: '<div> </div>',
             restrict: 'E',
             controller: function ($scope) {
-              $scope.albums = [1,2,3,4,5,6];
+
+                SpotifyAndEchoNestService.get({genre : 'dream pop'}).then(function(response) {
+                    $scope.albums = response.albums;
+                    console.log($scope.albums);
+                });
             },
 
             link: function (scope, ele, attrs) {

@@ -3,20 +3,20 @@ from twisted.web import proxy, server
 from twisted.web.resource import Resource
 from twisted.web.static import File
 
-class BugzillaProxy(Resource):
+class EchoNestProxy(Resource):
     isLeaf = False
-    allowedMethods = ("GET")
-    def getChild(self, name, request):
-        print name
-        return proxy.ReverseProxyResource('bugzilla.cyantechnology.local', 80, "/" + name)
+    allowedMethods = ('GET')
+    def getChild(self, params, request):
+        print params
+        return proxy.ReverseProxyResource('developer.echonest.com', 80, '')
 
 apiresource         = Resource()
-bugzillaproxy       = BugzillaProxy()
+echonestproxy       = EchoNestProxy()
 staticresource      = File('../www/static')
 
-apiresource.putChild('proxy',  bugzillaproxy)
+apiresource.putChild('playlist',  echonestproxy)
 apiresource.putChild('static', staticresource)
 
 site = server.Site(apiresource)
-reactor.listenTCP(8081, site)
+reactor.listenTCP(8082, site)
 reactor.run()

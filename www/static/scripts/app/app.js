@@ -18,16 +18,11 @@ app.config(function($stateProvider, $urlRouterProvider){
 
         .state('board', {
             url: "/board",
-            templateUrl: "../views/Board/board.html",
-            controller : 'BoardCtrl'
+            templateUrl: "../views/Board/board.html"
+
         })
 
 
-        .state('board.bugzillapreview', {
-            url: "/{bugid}",
-            templateUrl: "../views/Board/bugzillapreview.html",
-            controller : 'BugzillaPreviewCtrl'
-        })
 
 
 
