@@ -1,0 +1,174 @@
+<div class="modal-content">
+
+    <div class="modal-header">
+        <a href="#/board" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></a>
+        <h4 class="modal-title" id="myModalLabel"><a target="_blank" href="http://bugzilla.cyantechnology.local/bugzilla/show_bug.cgi?id={{params.bugid}}">Bug {{bug.id}} {{bug.summary}}</a></h4>
+    </div>
+    <div class="modal-body">
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-5">
+            <div class="control-group">
+                <div class="widget-box">
+
+                    <div class="widget-body">
+                        <div class="widget-main no-padding">
+                            <form class="form-horizontal" role="form">
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-input-readonly"> Status </label>
+
+                                    <div class="col-sm-9">
+                                        <input type="text" class="col-xs-10 col-sm-11" id="form-input-readonly" ng-model="bug.status" disabled="disabled">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-input-readonly"> Product </label>
+
+                                    <div class="col-sm-9">
+                                        <input type="text" class="col-xs-10 col-sm-11" id="form-input-readonly" ng-model="bug.product" disabled="disabled">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-input-readonly"> Component </label>
+
+                                    <div class="col-sm-9">
+                                        <input type="text" class="col-xs-10 col-sm-11" id="form-input-readonly" ng-model="bug.component" disabled="disabled">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-input-readonly"> Assigned To </label>
+
+                                    <div class="col-sm-9">
+                                        <input type="text" class="col-xs-10 col-sm-11" id="form-input-readonly" ng-model="bug.assigned_to" disabled="disabled">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-input-readonly"> Creator </label>
+
+                                    <div class="col-sm-9">
+                                        <input type="text" class="col-xs-10 col-sm-11" id="form-input-readonly" ng-model="bug.creator" disabled="disabled">
+                                    </div>
+                                </div>
+
+
+
+
+
+
+
+
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-7">
+            <div class="control-group">
+                <div class="widget-box">
+
+                    <div class="widget-body">
+                        <div class="widget-main no-padding">
+
+
+                                <div class="form-group">
+                                    <label class="control-label" for="form-input-readonly"> Reported on {{bug.creation_time | date}} by {{bug.creator}} </label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label no-padding-right" for="form-input-readonly"> Modified on {{bug.last_change_time | date}} </label>
+                                </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+        <hr>
+
+        <h4>Comments</h4>
+
+        <div id="timeline-2" class="">
+        <div class="row">
+        <div class="col-xs-6 col-sm-10 col-sm-offset-1">
+        <div class="timeline-container timeline-style2">
+
+            <div class="timeline-items" style="display : block; height: 500px; overflow: scroll">
+
+                <div ng-repeat='timelineitem in timeline | orderBy:time:true' >
+                    <div class="timeline-info" style="text-align: left; width: 250px">
+                        <span >{{timelineitem.time | date}}</span>
+                        <a href="#" class="purple bolder">{{timelineitem.author | stripEmail }}</a>
+                    </div>
+                    <br/>
+                    <div class="widget-box transparent clearfix" >
+                        <div class="widget-body">
+                            <div class="widget-main no-padding">
+
+                                <span class="bigger-110" ng-if="timelineitem.type == 'comment'">
+                                     <pre>{{timelineitem.preview}}</pre>
+                                </span>
+
+                                <span class="bigger-110" ng-if="timelineitem.type == 'history'">
+                                    <ul class="list-unstyled">
+                                        <li ng-repeat="preview in timelineitem.preview" class="timelinegroup {{preview.field_name}}">
+
+                                            <div class="row">
+                                                <div class="col-sm-10">
+                                                    <div class="row">
+                                                        <div class="col-lg-4"><strong>{{preview.field_name}}</strong></div>
+
+                                                        <div class="col-lg-4">
+                                                            <span ng-if="preview.removed" style="opacity: 0.4" class="badge badge-info {{preview.field_name}}">{{preview.removed | stripEmail}}</span>
+                                                            <small ng-if="!preview.removed"></small>
+                                                        </div>
+
+
+
+                                                        <div class="col-lg-4">
+
+                                                            <i style="margin-left: -50px" class="fa fa-long-arrow-right"></i>
+
+                                                            <span ng-if="preview.added" class="badge badge-info {{preview.field_name}}">{{preview.added | stripEmail}}</span>
+                                                            <small ng-if="!preview.added"></small></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </li>
+                                    </ul>
+                                </span>
+
+                                <br>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div><!-- /.timeline-items -->
+        </div><!-- /.timeline-container -->
+
+        </div>
+        </div>
+        </div>
+
+    </div>
+  <!--  <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+    </div>-->
+
+</div><!-- /.modal-content -->

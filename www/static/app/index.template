@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="Belize">
+<head>
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF8">
+
+    <!-- @if NODE_ENV == 'DEVELOPMENT' -->
+    <!--SCRIPTS--><!--SCRIPTS END-->
+
+    <link rel="shortcut icon" href="favicon.ico">
+	<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:400,300" />
+
+    <link href="../styles/tahoe.css"                             rel="stylesheet"/>
+    <link href="../styles/ace/ace.min.css"                       rel="stylesheet"/>
+    <link href="../styles/ace/ace-rtl.min.css"                   rel="stylesheet"/>
+    <link href="../styles/ace/ace-skins.min.css"                 rel="stylesheet"/>
+
+    <!-- @endif -->
+
+    <style>
+        @font-face {
+        font-family: "xkcd";
+        src: url('../styles/fonts/Humor-Sans-1.0.ttf');
+        }
+    </style>
+
+    <!-- @if NODE_ENV == 'PRODUCTION' -->
+    <script src="../release/tahoe.min.js"></script>
+    <link href="../styles/tahoe.min.css" rel="stylesheet"/>
+
+    <!-- @endif -->
+
+</head>
+
+<body>
+	<ui-view></ui-view>
+</body>
+
+</html>
+
